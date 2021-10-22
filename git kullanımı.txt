@@ -1,0 +1,153 @@
+=====BRANCHLER İLE İLGİLİ KOMUTLAR=====
+
+git remote show origin
+- çalışılan projenin uzak git sunucusu adresini gösterir.
+
+git config --get remote.origin.url
+- çalışılan projenin uzak git sunucusundaki origin adresini gösterir.
+
+git remote -v
+- çalışılan projenin uzak git sunucusu fetch ve push adresini gösterir.
+
+git status
+-şuanda hangi branchde olduğumuzu belirtir.
+
+git show-branch
+-tüm commitlerin listelenmesini sağlar.
+
+git branch -r
+- git sunucusundaki branchleri listeler
+
+git branch -a
+- git lokaldeki branchleri listeler
+
+git clone https://gitlab.com/serifgungor/demo.git
+-repoyu indirir.
+
+git branch
+- tüm branchleri gösterir
+
+git checkout development
+- development branch'ine geçer
+
+git checkout -b denemebranch
+- denemebranch adlı branch oluşturur ve o branch'e geçer.
+
+git branch demobranch
+- demobranch adlı branch oluşturur
+
+git push -u origin denemebranch
+git push -u origin HEAD
+- üretilen denemebranch adlı branch uzak gitde yoksa bunu çalıştırın.
+
+git push
+- üretilen branch uzak gitde varsa bunu çalıştırın.
+
+git push origin :2-admin-katilimcilari-aktif-pasif-edebilmeli
+- gitlab/github'da branch silme
+
+git push origin --delete branch-adi
+- gitlab/github'da branch silme / remote
+
+git branch -d branch-adi
+git branch -D branch-adi
+- local branch silme
+
+
+======BRANCH BİRLEŞTİRME/MERGE BRANCHES=====
+
+git checkout master
+- ilk olarak birleştirme işleminin hangi branch üzerine aktarılacağını belirtmek için eklenir.
+git merge my-branch-name
+- birleştirilecek branch adının belirtilmesini sağlıyoruz.
+
+NOT: -d seçeneği, yalnızca daha önce birleştirilmişse dalı siler. -D seçeneği, birleştirilmiş durumundan bağımsız olarak dalı silen --delete --force için bir kısayoldur. 
+NOTE: The -d option only deletes the branch if it has already been merged. The -D option is a shortcut for --delete --force, which deletes the branch irrespective of its merged status.
+
+
+=====GİT REPOSU OLUŞTURMA / AYARLAR=====
+
+git config -l
+- Git ayarlarınıza ait bilgileri gösterir.
+
+
+git init
+
+- Terminalinizde (Terminal, Git Bash veya Windows Komut İstemi), Git deposuna dönüştürmek istediğiniz klasöre gidin. 
+- In your terminal (Terminal, Git Bash, or Windows Command Prompt), navigate to the folder you wish to make into a Git repo.
+
+=====GİT REPOSUNA VERİ GÖNDERME/SİLME=====
+
+git init
+git add dosyalar/hyd-test-db.sql
+git commit -m "ci_session tablosu eklendi"
+git push
+- git'e dosya gönderme
+
+git rm klasör/bg.jpg
+- git reposundan klasör/bg.jpg dosyasını kalıcı olarak siler.
+- lokal olarak klasörden el ile manuel olarak silinen dosyalar, git üzerinden silinmiş sayılmaz.
+- Yazılımlar arkaplanda bu silme işlemini, bir önceki commitde bulunan tüm pathleri kıyaslayarak sağlar.
+
+git checkout -f
+- lokalde silinen dosyaları geri alır. Eğer dosya git rm ile silinip push edildiyse geri alınamaz.
+
+
+
+=====GİT REVERT/DEĞİŞİKLİĞİ GERİ ALMA=====
+
+git commit --amend "yeni açıklama"
+- yanlışlıkla commit olarak yazdığınız açıklamayı yeniden değiştirebilmenize olanak tanır.
+
+git revert a826c82b
+- git'e commit ettiğiniz değişikliği geri almak için kullanılır.
+
+git reset
+- git'e yansıtmaya gerek kalmadan değişikliği geri almak için kullanılır.
+- git reset komutu ile geri alma işlemi sonrasında geri aldığınız noktadan sonraki tüm değişiklikler tarihçeden silinecektir.
+- Ancak git bu silinen bilgileri 30 gün kadar veritabanında tutmaya devam edecektir. 
+- Eğer yanlışlıkla geri alma işlemi yaptığınızı farkederseniz 30 gün içinde silinen herhangi bir commit'inizi geri alabilirsiniz.
+
+git reset --hard
+- tüm local commitleri silerek geri alma işlemini sağlar.
+
+git reset --keep
+- local commitlerin korunarak geri alma işlemi için kullanılır.
+
+git checkout
+git reset --hard
+- komutları sonrasında kayıt altına alınmamış olan tüm değişiklikler geri dönüşü olmayacak şekilde yok olur.
+Bu nedenle bu komutları çalıştırırken dikkatli olmalısınız ve iki defa düşünmelisiniz.
+
+
+=====GİT LOG=====
+
+git log --author "serifgungor"
+- serifgungor adlı git kullanıcısının repodaki commitlerini gösterir.
+
+git log --pretty=oneline
+- tüm commit id'leri ve açıklamalarını gösterir.
+
+git log --pretty=short
+- commitler ve gönderen kişiler ile birlikte kısa açıklama gösterir.
+
+git log --pretty=medium
+- commitleri, gönderen kişi username,email,gönderim tarihi ve açıklaması ile birlikte gösterir.
+
+git commit -m "Burası commit başlığımız" -m "Burası içeriğimizin ilk satırı" -m "Burası içeriğimizin ikinci satırı." -m "Bu da son olsun bari"
+- commit mesajlarının alt satırlar halinde gönderilmesini sağlar.
+
+git log --name-status
+- tüm commitleri kimin gönderdiğiyle beraber, hangi dosyaları gönderdiğini gösterir.
+
+git log --name-status --pretty=oneline
+- commit açıklaması ile beraber, hangi dosyaları gönderdiğini gösterir.
+
+
+
+
+
+======KAYNAKÇA=====
+https://medium.com/@mustafazahidefe/git-notlar%C4%B1-5-branch-kavram%C4%B1-d176626711a4
+https://lib.yemreak.com/proje-yonetimi/git/branch
+https://aliozgur.gitbooks.io/git101/content/ileri_seviye_komutlar_ve_islemler/diff_ile_farklari_incelemek.html
